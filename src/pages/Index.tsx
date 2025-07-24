@@ -15,7 +15,7 @@ const Index = () => {
   const [analysis, setAnalysis] = useState<CareerAnalysis | null>(null);
   const [selectedCareerPath, setSelectedCareerPath] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
-  const [apiKey, setApiKey] = useState("");
+  const [apiKey, setApiKey] = useState("AIzaSyBtnQHGJfnbbGydLB3VZQpvvhfL0ax1Co4");
   const [isApiKeyDialogOpen, setIsApiKeyDialogOpen] = useState(false);
   const { toast } = useToast();
 
@@ -25,6 +25,7 @@ const Index = () => {
     if (savedApiKey) {
       setApiKey(savedApiKey);
     }
+    // If no saved key, use the default provided key
   }, []);
 
   // Save API key to localStorage when it changes
@@ -38,6 +39,7 @@ const Index = () => {
   };
 
   const handleFormSubmit = async (resume: string, careerPath: string) => {
+    // The app now comes with a default API key, so this check is optional
     if (!apiKey.trim()) {
       setIsApiKeyDialogOpen(true);
       toast({
@@ -95,28 +97,34 @@ const Index = () => {
             
             <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto leading-relaxed animate-fade-in">
               Transform your career with personalized AI guidance. Get tailored role recommendations, 
-              skill gap analysis, and a rewritten resume for your dream tech job.
+              skill gap analysis, and a rewritten resume for your dream tech job. Ready to use with built-in AI!
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in">
+              <div className="text-primary-foreground/90 text-center">
+                <span className="inline-flex items-center px-4 py-2 bg-primary-foreground/10 rounded-full">
+                  ✓ AI Ready - No Setup Required
+                </span>
+              </div>
+              
               <Dialog open={isApiKeyDialogOpen} onOpenChange={setIsApiKeyDialogOpen}>
                 <DialogTrigger asChild>
-                  <Button variant="default" size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 shadow-elegant">
+                  <Button variant="outline" size="sm" className="bg-transparent border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">
                     <Key className="mr-2 h-4 w-4" />
-                    Set API Key
+                    Use Custom API Key
                   </Button>
                 </DialogTrigger>
                 <DialogContent>
                   <DialogHeader>
-                    <DialogTitle>Enter Your Gemini API Key</DialogTitle>
+                    <DialogTitle>Use Your Own Gemini API Key (Optional)</DialogTitle>
                   </DialogHeader>
                   <div className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="apikey">Gemini API Key</Label>
+                      <Label htmlFor="apikey">Your Gemini API Key (Optional)</Label>
                       <Input
                         id="apikey"
                         type="password"
-                        placeholder="Enter your Gemini API key"
+                        placeholder="Enter your own API key (optional)"
                         value={apiKey}
                         onChange={(e) => handleApiKeyChange(e.target.value)}
                       />
@@ -124,25 +132,18 @@ const Index = () => {
                     <div className="flex items-start space-x-2 p-3 bg-muted rounded-lg">
                       <AlertCircle className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
                       <p className="text-sm text-muted-foreground">
-                        Get your free API key from <a href="https://makersuite.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Google AI Studio</a>. Your key is stored locally and never sent to our servers.
+                        This app comes with a built-in API key ready to use! Optionally, you can use your own API key from <a href="https://makersuite.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Google AI Studio</a> for higher usage limits.
                       </p>
                     </div>
                     <Button 
                       onClick={() => setIsApiKeyDialogOpen(false)} 
-                      disabled={!apiKey.trim()}
                       className="w-full"
                     >
-                      Save API Key
+                      {apiKey.trim() ? 'Update API Key' : 'Keep Default Key'}
                     </Button>
                   </div>
                 </DialogContent>
               </Dialog>
-              
-              {apiKey && (
-                <span className="text-primary-foreground/80 text-sm">
-                  ✓ API Key configured
-                </span>
-              )}
             </div>
           </div>
         </div>
@@ -189,7 +190,7 @@ const Index = () => {
                   Start Your Career Transformation
                 </h2>
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                  Share your current resume and desired career path to receive personalized AI guidance for your tech career transition.
+                  Share your current resume and desired career path to receive personalized AI guidance for your tech career transition. No setup required - just paste and analyze!
                 </p>
               </div>
               <CareerForm onSubmit={handleFormSubmit} isLoading={isLoading} />
