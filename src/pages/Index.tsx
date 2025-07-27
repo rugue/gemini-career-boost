@@ -85,6 +85,14 @@ const Index = () => {
           style={{ backgroundImage: `url(${heroImage})` }}
         />
         <div className="relative container mx-auto px-4 py-24 text-center">
+          {/* Logo */}
+          <div className="absolute top-8 left-8">
+            <img 
+              src="/lovable-uploads/4d6c610c-5dc4-4356-80b6-f9f8a7409784.png" 
+              alt="TechLeap Logo" 
+              className="h-12 w-auto"
+            />
+          </div>
           <div className="max-w-4xl mx-auto">
             <div className="inline-flex items-center px-4 py-2 bg-primary-foreground/10 rounded-full mb-6 animate-fade-in">
               <Bot className="mr-2 h-4 w-4 text-primary-foreground" />
