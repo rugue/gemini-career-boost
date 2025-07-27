@@ -88,7 +88,7 @@ const Index = () => {
           {/* Logo */}
           <div className="absolute top-8 left-8">
             <img 
-              src="/lovable-uploads/4d6c610c-5dc4-4356-80b6-f9f8a7409784.png" 
+              src="/lovable-uploads/0a70b325-a12e-4c28-b49d-d25678a723e5.png" 
               alt="TechLeap Logo" 
               className="h-12 w-auto"
             />
